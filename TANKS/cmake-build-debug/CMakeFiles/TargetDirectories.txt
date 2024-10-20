@@ -1,0 +1,3 @@
+/home/jose/CLionProjects/TANKS/cmake-build-debug/CMakeFiles/TANKS.dir
+/home/jose/CLionProjects/TANKS/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/jose/CLionProjects/TANKS/cmake-build-debug/CMakeFiles/rebuild_cache.dir
