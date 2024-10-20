@@ -15,7 +15,7 @@ const int numCols = 15; // Columnas del mapa
 const float cellSize = 50.0f; // Tamaño de cada celda
 const int numObstacles = 20; // Número de obstáculos aleatorios
 const int tankRadius = 15;
-const int BulletRadius = 10;
+const int BulletRadius = 15;
 std::vector<Vector2> restrictedPositions;
 
 // Definir función para comparar colores
@@ -190,15 +190,17 @@ int main() {
         // El jugador puede disparar si ha completado el movimiento y presiona la barra espaciadora
 
 
-
-
-        if (turnComplete && IsKeyPressed(KEY_SPACE)) {
+        if (!turnComplete && IsKeyPressed(KEY_SPACE)&&selectedTank.active) {
             for (int i = 0; i < 10; i++) {
                 if (!bullets[i].active) {
                     FireBullet(bullets[i], selectedTank);
                     break;
                 }
             }
+            turnComplete= true;
+
+        }
+        if(turnComplete){
             turnComplete = false;
             Tank* temp = currentPlayerTanks;
             currentPlayerTanks = nextPlayerTanks;
@@ -206,6 +208,7 @@ int main() {
             int tempIndex = currentPlayerIndex;
             currentPlayerIndex = nextPlayerIndex;
         }
+
 
         // Actualización de balas
         for (int i = 0; i < 10; i++) {
@@ -346,10 +349,14 @@ bool MoveTankToMouse(Tank &tank, Vector2 targetPosition, float deltaTime, const 
 }
 
 void FireBullet(Bullet &bullet, Tank &tank) {
-    bullet.active = true;
-    bullet.position = tank.position;
-    bullet.velocity = {cos(tank.rotation * DEG2RAD) * bulletSpeed, sin(tank.rotation * DEG2RAD) * bulletSpeed};
-    bullet.shooter = &tank; // Asignar el tanque que dispara la bala
+    if(tank.active){
+        bullet.active = true;
+        bullet.position = tank.position;
+        bullet.velocity = {cos(tank.rotation * DEG2RAD) * bulletSpeed, sin(tank.rotation * DEG2RAD) * bulletSpeed};
+        bullet.shooter = &tank; // Asignar el tanque que dispara la bala
+    }
+
+
 }
 
 void DrawTank(Tank tank) {
