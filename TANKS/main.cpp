@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include <cmath>
+#include <iostream>
 #include "Graph.cpp" // Incluir nuestro archivo de grafo
 
 const int screenWidth = 1000;
@@ -303,6 +304,7 @@ int main() {
 bool CheckCollisionBulletObstacles(Bullet bullet, std::vector<Obstacle> vector1) {
     for (const auto &obstacle : obstacles) {
         if (CheckCollisionCircleRec(bullet.position,BulletRadius, obstacle.rect)) {
+
             return true;  // Colisión detectada
         }
     }
